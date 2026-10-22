@@ -1,0 +1,26 @@
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# Python cache & compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Word temporary files
+~$*.docx
+~$*.xlsx
+
+# Local Windows Shortcuts & scripts
+*.lnk
+*.bat
+
+# OS files
+.DS_Store
+Thumbs.db
