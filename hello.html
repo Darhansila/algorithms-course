@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="hybrid">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Hello World с переливающимся радужным заголовком и тремя темами оформления.">
+    <meta name="theme-color" content="#0d1424">
+    <title>Hello, World!</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="stage">
+        <nav class="switcher" aria-label="Выбор темы оформления">
+            <button type="button" data-set-theme="arcade"  aria-pressed="false">Аркада</button>
+            <button type="button" data-set-theme="minimal" aria-pressed="false">Минимал</button>
+            <button type="button" data-set-theme="hybrid"  aria-pressed="true">Компромисс</button>
+        </nav>
+
+        <h1 class="rainbow">Hello, World!</h1>
+
+        <p class="lead">
+            Радужный заголовок, который мягко покачивается. Переключай тему кнопками
+            сверху — выбор запомнится в этом браузере.
+        </p>
+
+        <div class="controls">
+            <button type="button" class="btn" id="toggle-motion" aria-pressed="false">
+                Пауза анимации
+            </button>
+        </div>
+    </main>
+
+    <script>
+        (function () {
+            var root = document.documentElement;
+            var STORAGE_KEY = "hello-theme";
+            var buttons = document.querySelectorAll("[data-set-theme]");
+
+            function applyTheme(theme) {
+                root.setAttribute("data-theme", theme);
+                buttons.forEach(function (btn) {
+                    btn.setAttribute("aria-pressed", String(btn.dataset.setTheme === theme));
+                });
+                var meta = document.querySelector('meta[name="theme-color"]');
+                var colors = { arcade: "#0b0614", minimal: "#fbfaf8", hybrid: "#0d1424" };
+                if (meta && colors[theme]) meta.setAttribute("content", colors[theme]);
+                try { localStorage.setItem(STORAGE_KEY, theme); } catch (e) { /* приватный режим */ }
+            }
+
+            // Восстанавливаем тему
+            var saved = null;
+            try { saved = localStorage.getItem(STORAGE_KEY); } catch (e) { /* ignore */ }
+            if (saved && ["arcade", "minimal", "hybrid"].indexOf(saved) !== -1) {
+                applyTheme(saved);
+            } else {
+                applyTheme(root.getAttribute("data-theme") || "hybrid");
+            }
+
+            buttons.forEach(function (btn) {
+                btn.addEventListener("click", function () {
+                    applyTheme(btn.dataset.setTheme);
+                });
+            });
+
+            // Пауза / возобновление анимации
+            var toggle = document.getElementById("toggle-motion");
+            toggle.addEventListener("click", function () {
+                var paused = document.body.classList.toggle("paused");
+                toggle.setAttribute("aria-pressed", String(paused));
+                toggle.textContent = paused ? "Продолжить" : "Пауза анимации";
+            });
+        })();
+    </script>
+</body>
+</html>
