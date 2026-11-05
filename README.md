@@ -19,6 +19,8 @@ Each laboratory includes clean datasets, Jupyter Notebook implementations (`.ipy
 | **[Practice 3](./3practice/)** | **Logistic Regression** | Cybersecurity / Email Filtering | Binary spam classification via structural email features | $\text{Accuracy} = 96.7\%$, $\text{F1} = 0.966$ |
 | **[Practice 4](./4practice/)** | **K-Nearest Neighbors (KNN)** | Email Spam Classification | Non-parametric classification with feature scaling & $k$-tuning | $\text{Accuracy} = 94.0\%$, $\text{Recall} = 96.0\%$ |
 | **[Practice 5](./5practice/)** | **Support Vector Machines (SVM)** | Academic Analytics | Predict student exam success from attendance and study metrics | $\text{Accuracy} = 94.0\%$--$98.0\%$ across kernels |
+| **[Practice 6](./6practice/)** | **Multilayer Perceptron (MLP)** | Oenological Chemistry / Quality | Multi-class wine classification (3 classes) via deep feedforward neural network | $\text{Accuracy} = 100\%$, $\text{F1} = 1.000$ |
+| **[Practice 7](./7practice/)** | **Principal Component Analysis (PCA)** | Chemical Dimensionality Reduction | 13 chemical features projected into 2D and 3D orthogonal latent space | $\text{Var}_{\text{2D}} = 53.7\%$, $\text{Var}_{\text{3D}} = 61.9\%$ |
 
 ---
 
@@ -104,6 +106,47 @@ Each laboratory includes clean datasets, Jupyter Notebook implementations (`.ipy
 
 ---
 
+### 6. Practice 6 — Multilayer Perceptron Neural Network (`6practice/`)
+* **Objective:** Multi-class classification via deep feedforward neural networks (Multilayer Perceptron, MLP) using backpropagation, non-linear activation functions, and adaptive stochastic optimization.
+* **Dataset:** [`data.csv`](./6practice/data.csv) (250 rows) — Enological quality dataset featuring 13 chemical markers (`alcohol`, `malic_acid`, `ash`, `alcalinity_of_ash`, `magnesium`, `total_phenols`, `flavanoids`, `nonflavanoid_phenols`, `proanthocyanins`, `color_intensity`, `hue`, `od280_od315`, `proline`) paired with realistic sommelier metadata (`sample_id`, `sommelier_name`, `region`, `vintage_year`).
+* **Methodology:**
+  * Z-score standardization via `StandardScaler` ensuring numerically stable gradient descent.
+  * Architecture configuration matching Variant 4: `hidden_layer_sizes=(32, 16)`, `activation='relu'`, `solver='adam'`, `max_iter=600`.
+  * Comprehensive performance analysis:
+    * **Accuracy:** $100.0\%$
+    * **Precision:** $1.000$ (weighted)
+    * **Recall:** $1.000$ (weighted)
+    * **F1-Score:** $1.000$ (weighted)
+  * Multi-architecture benchmarking comparing single-layer `(16)`, two-layer `(32, 16)`, and deeper configurations `(64, 32)` / `(64, 32, 16)` across convergence speed and training loss trajectories.
+  * Production inference and confidence calibration via `predict_proba`.
+* **Artifacts:**
+  * Notebook: [`6practice.ipynb`](./6practice/6practice.ipynb)
+  * Visualizations: [`report_images/`](./6practice/report_images/)
+  * Report: [`Практика6Алгоритм.docx`](./6practice/Практика6Алгоритм.docx)
+
+---
+
+### 7. Practice 7 — Principal Component Analysis (`7practice/`)
+* **Objective:** Unsupervised dimensionality reduction, variance maximization, and orthogonal projection of multi-dimensional feature manifolds.
+* **Dataset:** [`data.csv`](./7practice/data.csv) (250 rows) — 13 continuous chemical descriptors of wine cultivars standardized to zero mean and unit variance.
+* **Methodology:**
+  * Eigendecomposition of the sample covariance matrix determining orthogonal principal components.
+  * Variance distribution analysis:
+    * **PC1:** $36.76\%$ variance (phenolic concentration and flavonoid density)
+    * **PC2:** $16.92\%$ variance (color intensity and ethanol level)
+    * **PC3:** $8.17\%$ variance
+    * **Cumulative 2D Variance:** $53.68\%$
+    * **Cumulative 3D Variance:** $61.85\%$
+  * Scree plot diagnostics and cumulative explained variance curves identifying the intrinsic elbow point.
+  * 2D and 3D manifold visualization showing clean unsupervised class clustering.
+  * Component loadings matrix and Vector Biplot interpreting geometric feature trajectories.
+* **Artifacts:**
+  * Notebook: [`7practice.ipynb`](./7practice/7practice.ipynb)
+  * Visualizations: [`report_images/`](./7practice/report_images/)
+  * Report: [`Практика7Алгоритм.docx`](./7practice/Практика7Алгоритм.docx)
+
+---
+
 ## 🛠️ Environment Setup & Installation
 
 ### 1. Clone the repository
@@ -125,14 +168,14 @@ source .venv/bin/activate
 
 ### 3. Install dependencies
 ```bash
-pip install pandas numpy scikit-learn matplotlib seaborn openpyxl python-docx jupyter
+pip install pandas numpy scikit-learn matplotlib seaborn openpyxl python-docx jupyter nbconvert
 ```
 
 ### 4. Run Jupyter Lab / Notebooks
 ```bash
 jupyter notebook
 ```
-Open any of the practice directories (`1practice`, `2practice`, `3practice`, `4practice`, `5practice`) and run the respective `.ipynb` notebooks.
+Open any of the practice directories (`1practice` to `7practice`) and run the respective `.ipynb` notebooks.
 
 ---
 
