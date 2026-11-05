@@ -181,5 +181,5 @@ Open any of the practice directories (`1practice` to `7practice`) and run the re
 
 ## 👤 Author
 
-**[Имя удалено по соображениям конфиденциальности]** ([@Darhansila](https://github.com/Darhansila))  
+**Darkhan Kozhash** ([@Darhansila](https://github.com/Darhansila))  
 Computer Science | Satbayev University
